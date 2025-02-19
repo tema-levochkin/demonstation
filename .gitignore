@@ -1,0 +1,4 @@
+demo_env/
+__pycache__/
+
+sqlite.db
