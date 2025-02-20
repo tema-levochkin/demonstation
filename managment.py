@@ -11,7 +11,12 @@ from app.services import UserService
 
 
 def generate_random_date() -> datetime: 
-    """Генерирует случайную дату между start_date и end_date."""
+    """
+    Generates a random date between 2010-01-01 and 2025-01-01.
+
+    Returns:
+        datetime: A random date within the specified range.
+    """
     start_date = datetime(
         year=2010, 
         month=1, 
@@ -34,6 +39,12 @@ def generate_random_date() -> datetime:
 
 
 def generate_random_users() -> None:
+    """
+    Generates and adds 1000 random users to the database if they don't already exist.
+
+    Returns:
+        None
+    """
     faker = Faker()
     for _ in range(1000):
         user_servise = UserService()
@@ -50,8 +61,6 @@ def generate_random_users() -> None:
                     )
                 database.session.add(new_user)
                 database.session.commit()
-
-
 
 
 command = sys.argv[1]

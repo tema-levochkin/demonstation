@@ -154,10 +154,21 @@
           }
         }        
       }, 
-      "/user/analytict": {
+      "/user/analytics": {
         "get":{
           "tags": ["analytics"],
-          "summary": "create a new user"
+          "summary": "analytics users", 
+          "responses": {
+            "200": {
+              "description": "users analytics"
+            }, 
+            "404": {
+              "description": "users not found"
+            }, 
+            "500": {
+              "description": "server error"
+            }
+          }
         }
       }
     },

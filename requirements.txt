@@ -1,6 +1,8 @@
 blinker==1.9.0
 click==8.1.8
+Faker==36.1.1
 Flask==3.1.0
+Flask-Cors==5.0.0
 Flask-SQLAlchemy==3.1.1
 flask-swagger-ui==4.11.1
 greenlet==3.1.1
@@ -14,4 +16,5 @@ pluggy==1.5.0
 pytest==8.3.4
 SQLAlchemy==2.0.38
 typing_extensions==4.12.2
+tzdata==2025.1
 Werkzeug==3.1.3
