@@ -1,17 +1,232 @@
 {
-    "openapi": "3.0.0",
+    "swagger": "2.0",
     "info": {
-      "title": "My API",
+      "title": "Demonstration-1",
       "version": "1.0.0"
     },
+    "tags": [
+      {
+        "name": "users",
+        "description": "CRUD operation and analytics with users"
+      }, 
+      {
+        "name": "analytics",
+        "description": "users analytics"
+      }
+    ],
     "paths": {
-      "/hello": {
-        "get": {
-          "summary": "Say hello",
+      "/user/create": {
+        "post": {
+          "tags": ["users"], 
+          "summary": "create a new user", 
+          "operationId": "createUser",
+          "parameters": [{
+            "name": "user",
+            "in": "body",
+            "description": "user data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserCreate"
+            }
+          }],
           "responses": {
             "200": {
-              "description": "A greeting message"
+              "description": "a new user has been created", 
+              "schema": {
+                "$ref": "#/definitions/UserInfo"
+              }
+            }, 
+            "400": {
+              "description": "invalid data"
+            }, 
+            "500": {
+              "description": "server error"
             }
+          }
+        }
+      }, 
+      "/user/{userId}": {
+        "get":{
+          "tags": ["users"],
+          "summary": "get information about user",
+          "parameters": [{
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }],
+          "responses": {
+            "200": {
+              "description": "data about user",
+              "schema": {
+                "$ref": "#/definitions/UserInfo"
+              }
+            }, 
+            "404": {
+              "description": "user data not found"
+            }, 
+            "500": {
+              "description": "server error"
+            }
+          }
+        }
+      }, 
+      "/user/update": {
+        "patch":{
+          "tags": ["users"],
+          "summary": "update user data",
+          "parameters": [{
+            "name": "userId",
+            "in": "body",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdate"
+            }
+          }],
+          "responses": {
+              "200": {
+                "description": "user data successfully update",
+                "schema": {
+                  "$ref": "#/definitions/UpdatedData"
+                }
+              }, 
+              "404": {
+                "description": "user not found"
+              }, 
+              "500": {
+                "description": "server error"
+              }
+            }
+        }
+      }, 
+      "/user/delete": {
+        "delete": {
+          "tags": ["users"],
+          "summary": "delete a user",
+          "parameters": [{
+            "name": "userId",
+            "in": "body",
+            "description": "user id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDelete"
+            }
+          }],
+          "responses": {
+            "200": {
+              "description": "user was delete"
+            }, 
+            "404": {
+              "description": "user not found"
+            }, 
+            "500": {
+              "description": "server error"
+            }
+          }
+        }
+      }, 
+      "/user/list": {
+        "get":{
+          "tags": ["users"],
+          "summary": "get users list", 
+          "parameters": [{
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "schema": {
+              "type": "integer"
+            }
+          }], 
+          "responses": {
+            "200": {
+              "description": "users list on page"
+            }, 
+            "404": {
+              "description": "users on page not found"
+            }, 
+            "500": {
+              "description": "server error"
+            }
+          }
+        }        
+      }, 
+      "/user/analytict": {
+        "get":{
+          "tags": ["analytics"],
+          "summary": "create a new user"
+        }
+      }
+    },
+    "definitions": {
+      "UserCreate": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "email"]
+      }, 
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "registration_date": {
+            "type": "string"
+          }
+        },
+        "required": ["id"]
+      }, 
+      "UserUpdate": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "update_data": {
+            "type": "object", 
+            "properties": {
+              "email": {
+                "type": "string"
+              }, 
+              "username": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }, 
+      "UpdatedData": {
+        "type": "object", 
+        "properties": {
+          "email": {
+            "type": "string"
+          }, 
+          "username": {
+            "type": "string"
+          }
+        }
+      }, 
+      "UserDelete": {
+        "type": "object", 
+        "properties": {
+          "user_id": {
+            "type": "integer"
           }
         }
       }
